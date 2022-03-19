@@ -1,5 +1,6 @@
 package veth.vetheon.survival;
 
+import me.casperge.realisticseasons.api.SeasonsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -15,7 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import veth.vetheon.survival.commands.*;
 import veth.vetheon.survival.config.PlayerDataConfig;
@@ -27,6 +27,9 @@ import veth.vetheon.survival.tasks.TaskManager;
 import veth.vetheon.survival.config.Config;
 import veth.vetheon.survival.config.Lang;
 import veth.vetheon.survival.util.Utils;
+// Rough in for Realistic Seasons
+// import me.casperge.realisticseasons.*;
+// import me.casperge.realisticseasons1_18_R2.*;
 
 import java.util.*;
 
@@ -72,11 +75,11 @@ public class Survival extends JavaPlugin implements Listener {
 		long time = System.currentTimeMillis();
 
 		// VERSION CHECK
-		if (!Utils.isRunningMinecraft(1, 17)) {
+		if (!Utils.isRunningMinecraft(1, 18, 2)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
 			Utils.log("&c-----------------------------------------------------------");
 			Utils.log("&cYour version is not supported: &b" + ver);
-			Utils.log("&eThis plugin only works on Minecraft &b1.16+");
+			Utils.log("&eThis plugin only works on Minecraft &b1.18.2");
 			Utils.log("&c-----------------------------------------------------------");
 			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
@@ -87,7 +90,7 @@ public class Survival extends JavaPlugin implements Listener {
 		if (!Utils.isRunningSpigot()) {
 			Utils.log("&c-----------------------------------------------------------");
 			Utils.log("&7Your server software is not supported: &c" + Bukkit.getName());
-			Utils.log("&7This plugin will only work on &aSpigot &7, &aPaper &7ir, &5Purpur.");
+			Utils.log("&7This plugin will only work on &aSpigot &7, &aPaper &7or, &5Purpur.");
 			Utils.log("&c-----------------------------------------------------------");
 			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
@@ -151,6 +154,11 @@ public class Survival extends JavaPlugin implements Listener {
 			new Placeholders(this).register();
 			Utils.log("&7PlaceholderAPI placeholders &aenabled");
 		}
+
+		// CHECK IF REALISTICSEASONS IS PRESENT AND LOAD IT
+		// if (Bukkit.getPluginManager().getPlugin("RealisticSeasons") != null) {
+			// Utils.log("&7Detected Realistic Seasons! &rUsing it to &4take over the world!");
+		// }
 
 		// REGISTER EVENTS & COMMANDS
 		registerCommands();
