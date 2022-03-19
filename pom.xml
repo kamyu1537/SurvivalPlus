@@ -46,6 +46,13 @@
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
+        <!-- <dependency>
+            <groupId>me.casperge.realisticseasons</groupId>
+            <artifactId>1_18_R2</artifactId>
+            <version>6.12</version>
+            <scope>system</scope>
+            <systemPath>E:/GitHub/Project-Jars/RealisticSeasons-7.36.jar</systemPath>
+        </dependency>-->
         <dependency>
         <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
