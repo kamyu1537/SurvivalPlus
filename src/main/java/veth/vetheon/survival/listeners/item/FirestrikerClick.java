@@ -23,6 +23,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -161,8 +162,9 @@ public class FirestrikerClick implements Listener {
 
     @EventHandler
     private void onCloseInventory(InventoryCloseEvent event) {
-        if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(lang.firestriker))) {
-            Inventory inv = event.getInventory();
+        Inventory inv = event.getInventory();
+        InventoryHolder holder = event.getInventory().getHolder();
+        if (holder != null) {
             if (inv.getHolder() instanceof FireStriker) {
                 ((FireStriker) inv.getHolder()).close();
             }
