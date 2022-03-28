@@ -30,7 +30,7 @@ public class WaterBowl implements Listener {
 		this.CLAY_ENABLED = plugin.getSurvivalConfig().RECIPES_CLAY;
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	private void onConsume(PlayerItemConsumeEvent event) {
 		if (!THIRST_ENABLED) {
 			if (event.isCancelled()) return;
@@ -38,12 +38,11 @@ public class WaterBowl implements Listener {
 				event.setCancelled(true);
 			}
 		} else if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
-			event.setCancelled(true);
-
 			ItemStack useItem = event.getPlayer().getItemInUse();
 			if (useItem != null) {
 				useItem.setAmount(useItem.getAmount() - 1);
 				event.getPlayer().getInventory().addItem(new ItemStack(Material.BOWL, 1));
+				event.setCancelled(true);
 			}
 		}
 	}
