@@ -37,6 +37,14 @@ public class WaterBowl implements Listener {
 			if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
 				event.setCancelled(true);
 			}
+		} else if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
+			event.setCancelled(true);
+
+			ItemStack useItem = event.getPlayer().getItemInUse();
+			if (useItem != null) {
+				useItem.setAmount(useItem.getAmount() - 1);
+				event.getPlayer().getInventory().addItem(new ItemStack(Material.BOWL, 1));
+			}
 		}
 	}
 
