@@ -83,12 +83,12 @@ public class RecipeManager {
 
 
         // HAMMER RECIPE
-        ShapedRecipe hammer = new ShapedRecipe(new NamespacedKey(plugin, "hammer"), ItemManager.get(Item.HAMMER));
-
-        hammer.shape("@ ", "1@");
-
-        hammer.setIngredient('@', Material.COBBLESTONE);
-        hammer.setIngredient('1', Material.STICK);
+//        ShapedRecipe hammer = new ShapedRecipe(new NamespacedKey(plugin, "hammer"), ItemManager.get(Item.HAMMER));
+//
+//        hammer.shape("@ ", "1@");
+//
+//        hammer.setIngredient('@', Material.COBBLESTONE);
+//        hammer.setIngredient('1', Material.STICK);
 
 
         // VALKYRIE's AXE RECIPE
@@ -255,11 +255,11 @@ public class RecipeManager {
 
         // WORKBENCH RECIPE
         ShapelessRecipe workbench = new ShapelessRecipe(new NamespacedKey(plugin, "workbench"), ItemManager.get(Item.WORKBENCH));
-
         workbench.addIngredient(new RecipeChoice.MaterialChoice(Tag.LOGS));
         workbench.addIngredient(Material.LEATHER);
         workbench.addIngredient(Material.STRING);
-        workbench.addIngredient(new ExactChoice(ItemManager.get(Item.HAMMER)));
+        workbench.addIngredient(new ExactChoice(ItemManager.get(Item.MATTOCK)));
+//        workbench.addIngredient(new ExactChoice(ItemManager.get(Item.HAMMER)));
 
 
         //  FURNACE RECIPE
@@ -775,7 +775,7 @@ public class RecipeManager {
             plugin.getServer().addRecipe(hatchet2);
             plugin.getServer().addRecipe(mattock);
             plugin.getServer().addRecipe(shiv);
-            plugin.getServer().addRecipe(hammer);
+//            plugin.getServer().addRecipe(hammer);
             plugin.getServer().addRecipe(firestriker);
             plugin.getServer().addRecipe(chest);
             plugin.getServer().addRecipe(flint);

@@ -31,18 +31,21 @@ public class CauldronWaterBottle implements Listener {
 						if (event.getClickedBlock().getType() == Material.WATER_CAULDRON) {
 							Levelled cauldron = (Levelled) (event.getClickedBlock().getBlockData());
 							if (cauldron.getLevel() > 0) {
+
 								if(cauldron.getLevel() > 1) {
 									cauldron.setLevel(cauldron.getLevel() - 1);
 									event.getClickedBlock().setBlockData(cauldron);
-								}else event.getClickedBlock().setType(Material.CAULDRON);
+								} else {
+									event.getClickedBlock().setType(Material.CAULDRON);
+								}
 
 //								ItemStack waterBottle = ItemManager.get(Item.DIRTY_WATER);
 
 								Block fire = event.getClickedBlock().getRelative(BlockFace.DOWN);
 								if (fire.getType() != Material.FIRE) return;
 
-								ItemStack waterBottle = ItemManager.get(Item.PURIFIED_WATER);
 								event.setCancelled(true);
+								ItemStack waterBottle = ItemManager.get(Item.PURIFIED_WATER);
 								player.playSound(event.getClickedBlock().getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
 
 								if (mainItem.getAmount() > 1) {
