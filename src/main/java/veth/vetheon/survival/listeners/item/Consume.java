@@ -230,8 +230,6 @@ public class Consume implements Listener {
 	private boolean isWaterBottle(ItemStack bottle) {
 		ItemMeta meta = bottle.getItemMeta();
 		if (!(meta instanceof PotionMeta)) return false;
-
 		return ((PotionMeta) meta).getBasePotionData().getType() == PotionType.WATER;
 	}
-
 }

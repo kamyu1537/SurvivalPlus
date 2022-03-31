@@ -21,6 +21,7 @@ public class CauldronWaterBottle implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onItemClick(PlayerInteractEvent event) {
 		if (event.isCancelled()) return;
+		if (event.getClickedBlock() == null) return;
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
@@ -30,19 +31,18 @@ public class CauldronWaterBottle implements Listener {
 						if (event.getClickedBlock().getType() == Material.WATER_CAULDRON) {
 							Levelled cauldron = (Levelled) (event.getClickedBlock().getBlockData());
 							if (cauldron.getLevel() > 0) {
-								Block fire = event.getClickedBlock().getRelative(BlockFace.DOWN);
-								event.setCancelled(true);
-
 								if(cauldron.getLevel() > 1) {
 									cauldron.setLevel(cauldron.getLevel() - 1);
 									event.getClickedBlock().setBlockData(cauldron);
 								}else event.getClickedBlock().setType(Material.CAULDRON);
 
-								ItemStack waterBottle = ItemManager.get(Item.DIRTY_WATER);
+//								ItemStack waterBottle = ItemManager.get(Item.DIRTY_WATER);
 
-								if (fire.getType() == Material.FIRE) {
-									waterBottle = ItemManager.get(Item.PURIFIED_WATER);
-								}
+								Block fire = event.getClickedBlock().getRelative(BlockFace.DOWN);
+								if (fire.getType() != Material.FIRE) return;
+
+								ItemStack waterBottle = ItemManager.get(Item.PURIFIED_WATER);
+								event.setCancelled(true);
 								player.playSound(event.getClickedBlock().getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
 
 								if (mainItem.getAmount() > 1) {
