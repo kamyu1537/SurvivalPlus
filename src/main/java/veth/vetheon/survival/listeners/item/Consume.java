@@ -148,7 +148,6 @@ public class Consume implements Listener {
 
 	private int handleWaterBowl(Player player) {
         int change = config.MECHANICS_THIRST_REP_WATER_BOWL;
-        player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
         if (config.MECHANICS_THIRST_PURIFY_WATER) {
             Random rand = new Random();
             if (rand.nextInt(10) + 1 <= 8) {

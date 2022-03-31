@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -38,11 +39,16 @@ public class WaterBowl implements Listener {
 				event.setCancelled(true);
 			}
 		} else if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
-			ItemStack useItem = event.getPlayer().getItemInUse();
+			Player player = event.getPlayer();
+			ItemStack useItem = player.getItemInUse();
+
 			if (useItem != null) {
-				useItem.setAmount(useItem.getAmount() - 1);
-				event.getPlayer().getInventory().addItem(new ItemStack(Material.BOWL, 1));
 				event.setCancelled(true);
+				useItem.setAmount(useItem.getAmount() - 1);
+				ItemStack bowlItem = new ItemStack(Material.BOWL, 1);
+				if (player.getInventory().addItem(bowlItem).size() > 0) {
+					player.getWorld().dropItem(player.getLocation(), bowlItem);
+				}
 			}
 		}
 	}
