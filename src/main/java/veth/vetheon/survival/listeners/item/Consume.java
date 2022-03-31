@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.event.player.PlayerFishEvent;
 import veth.vetheon.survival.Survival;
@@ -74,6 +75,14 @@ public class Consume implements Listener {
 							}
 						} else if (ItemManager.compare(item, Item.PURIFIED_WATER)) {
 							change = config.MECHANICS_THIRST_REP_PURE_WATER;
+						} else if (isWaterBottle(item)) {
+							// DIRTY WATER
+							change = config.MECHANICS_THIRST_REP_DIRTY_WATER;
+							Random rand = new Random();
+							if (rand.nextInt(10) + 1 <= 5) {
+								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
+							}
 						} else if (ItemManager.compare(item, Item.COFFEE)) {
 							change = config.MECHANICS_THIRST_REP_COFFEE;
 						} else if (ItemManager.compare(item, Item.COLD_MILK)) {
@@ -205,7 +214,8 @@ public class Consume implements Listener {
 
 	private boolean checkWaterBottle(ItemStack bottle) {
 		ItemMeta meta = bottle.getItemMeta();
-		assert meta != null;
+		if (!(meta instanceof PotionMeta)) return false;
+
 		switch (((PotionMeta) meta).getBasePotionData().getType()) {
 			case WATER:
 			case MUNDANE:
@@ -215,6 +225,13 @@ public class Consume implements Listener {
 			default:
 				return false;
 		}
+	}
+
+	private boolean isWaterBottle(ItemStack bottle) {
+		ItemMeta meta = bottle.getItemMeta();
+		if (!(meta instanceof PotionMeta)) return false;
+
+		return ((PotionMeta) meta).getBasePotionData().getType() == PotionType.WATER;
 	}
 
 }

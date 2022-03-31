@@ -15,6 +15,10 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.SmokingRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import veth.vetheon.survival.Survival;
 import veth.vetheon.survival.config.Config;
 import veth.vetheon.survival.item.Item;
@@ -391,6 +395,26 @@ public class RecipeManager {
         CampfireRecipe clean_water_camp = new CampfireRecipe(new NamespacedKey(plugin, "clean_water_campfire"),
                 ItemManager.get(Item.CLEAN_WATER), new ExactChoice(ItemManager.get(Item.DIRTY_WATER)), 0, 2400);
 
+        if (config.MECHANICS_THIRST_PURIFY_WATER) {
+            ItemStack waterPotion = new ItemStack(Material.POTION);
+            ItemMeta waterPotionItemMeta = waterPotion.getItemMeta();
+
+            if (waterPotionItemMeta instanceof PotionMeta) {
+                ((PotionMeta) waterPotionItemMeta).setBasePotionData(new PotionData(PotionType.WATER));
+                waterPotion.setItemMeta(waterPotionItemMeta);
+
+                FurnaceRecipe clean_water_furnace2 = new FurnaceRecipe(new NamespacedKey(plugin, "clean_water_furnace2"),
+                        ItemManager.get(Item.CLEAN_WATER), new ExactChoice(waterPotion), 0, 600);
+                SmokingRecipe clean_water_smoker2 = new SmokingRecipe(new NamespacedKey(plugin, "clean_water_smoker2"),
+                        ItemManager.get(Item.CLEAN_WATER), new ExactChoice(waterPotion), 0, 300);
+                CampfireRecipe clean_water_camp2 = new CampfireRecipe(new NamespacedKey(plugin, "clean_water_campfire2"),
+                        ItemManager.get(Item.CLEAN_WATER), new ExactChoice(waterPotion), 0, 2400);
+
+                plugin.getServer().addRecipe(clean_water_furnace2);
+                plugin.getServer().addRecipe(clean_water_smoker2);
+                plugin.getServer().addRecipe(clean_water_camp2);
+            }
+        }
 
         //  MEDIC KIT RECIPE
         ShapedRecipe medic_kit = new ShapedRecipe(new NamespacedKey(plugin, "medic_kit"), ItemManager.get(Item.MEDIC_KIT));

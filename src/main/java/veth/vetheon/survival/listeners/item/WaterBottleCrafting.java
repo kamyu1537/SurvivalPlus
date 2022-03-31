@@ -30,12 +30,12 @@ import java.util.Objects;
 
 public class WaterBottleCrafting implements Listener {
 
-	private Survival plugin;
-	private Config config;
+	private final Survival plugin;
+//	private final Config config;
 
 	public WaterBottleCrafting(Survival plugin) {
 		this.plugin = plugin;
-		this.config = plugin.getSurvivalConfig();
+//		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler
@@ -59,46 +59,44 @@ public class WaterBottleCrafting implements Listener {
 			}
 		}
 	}
+//	@EventHandler(priority = EventPriority.LOWEST)
+//	private void onFillWaterBottle(PlayerInteractEvent e) {
+//		if (!config.MECHANICS_THIRST_PURIFY_WATER) return;
+//		Player player = e.getPlayer();
+//		ItemStack item = e.getItem();
+//
+//		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
+//            Block targetBlock = player.getTargetBlockExact(5, FluidCollisionMode.ALWAYS);
+//            if (targetBlock == null) targetBlock = e.getClickedBlock();
+//			if (targetBlock == null) return;
+//
+//            if (isWaterBlock(targetBlock, e.getBlockFace())) {
+//				e.setCancelled(true);
+//				item.setAmount(item.getAmount() - 1);
+//
+//				if (player.getInventory().addItem(ItemManager.get(Item.DIRTY_WATER)).size() > 0) {
+//					player.getWorld().dropItem(player.getLocation(), Item.DIRTY_WATER.getItem());
+//				}
+//			}
+//		}
+//	}
 
-	@EventHandler(priority = EventPriority.LOWEST)
-	private void onFillWaterBottle(PlayerInteractEvent e) {
-		if (!config.MECHANICS_THIRST_PURIFY_WATER) return;
-		Player player = e.getPlayer();
-		ItemStack item = e.getItem();
+//	private boolean isWaterBlock(Block block, BlockFace clickedFace) {
+//	    if (block.getType() == Material.WATER) return true;
+//        BlockData data = block.getBlockData();
+//        if (isWaterlogged(data)) return true;
+//		Block faceBlock = block.getRelative(clickedFace);
+//		if (faceBlock.getType() == Material.WATER) return true;
+//		return isWaterlogged(faceBlock.getBlockData());
+//	}
 
-		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
-            Block targetBlock = player.getTargetBlockExact(5, FluidCollisionMode.ALWAYS);
-            if (targetBlock == null) targetBlock = e.getClickedBlock();
-			if (targetBlock == null) return;
-
-            if (isWaterBlock(targetBlock, e.getBlockFace())) {
-				e.setCancelled(true);
-				item.setAmount(item.getAmount() - 1);
-
-				if (player.getInventory().addItem(ItemManager.get(Item.DIRTY_WATER)).size() > 0) {
-					player.getWorld().dropItem(player.getLocation(), Item.DIRTY_WATER.getItem());
-				}
-			}
-		}
-	}
-
-	private boolean isWaterBlock(Block block, BlockFace clickedFace) {
-	    if (block.getType() == Material.WATER) return true;
-        BlockData data = block.getBlockData();
-        if (isWaterlogged(data)) return true;
-		Block faceBlock = block.getRelative(clickedFace);
-		if (faceBlock.getType() == Material.WATER) return true;
-		return isWaterlogged(faceBlock.getBlockData());
-	}
-
-	private boolean isWaterlogged(BlockData data) {
-		return data instanceof Waterlogged && ((Waterlogged) data).isWaterlogged();
-	}
-
-	private boolean checkWaterBottle(ItemStack bottle) {
-
-		return ((PotionMeta) Objects.requireNonNull(bottle.getItemMeta())).getBasePotionData().getType() == PotionType.WATER;
-
-	}
-
+//	private boolean isWaterlogged(BlockData data) {
+//		return data instanceof Waterlogged && ((Waterlogged) data).isWaterlogged();
+//	}
+//
+//	private boolean checkWaterBottle(ItemStack bottle) {
+//
+//		return ((PotionMeta) Objects.requireNonNull(bottle.getItemMeta())).getBasePotionData().getType() == PotionType.WATER;
+//
+//	}
 }
